@@ -38,9 +38,15 @@ mount -o remount,ro /
 ### Step 7. Remove reserved GDT blocks
 ```sh
 tune2fs -O^resize_inode /dev/mmcblk0p2
+```
+You may got
+"Please run e2fsck -f on the filesystem. (and reboot afterwards!)"
+Ignore it. Run
+```sh
 fsck.ext4 /dev/mmcblk0p2 
 ```
 (This might probably fail, doesn't seem to affect anything though)
+Press 'y' when asking for repairing
 ```sh
 reboot
 ```
@@ -54,8 +60,20 @@ df –h
 ```
 This will successfully increase your storage.
 
+### Final Step. Verify:
+```sh
+mount -o remount,ro /
+fsck.ext4 /dev/mmcblk0p2 
+```
+Then
+```sh
+reboot
+```
+Let's go from a new start
+
 ## License
 **Free Software, Hell Yeah!**
 
 ## Authors
+Modified from
 - [Rahul Gupta](https://github.com/rahulelex)
